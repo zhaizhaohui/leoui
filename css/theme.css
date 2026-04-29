@@ -1,0 +1,12 @@
+body {
+    font-family: var(--fm-serif);
+    background-color: var(--c-surface);
+}
+header {
+    background-color: var(--c-surface-white);
+}
+nav {
+    display: flex;
+    height: var(--nav-height);
+    border-bottom: 1px solid var(--c-border);
+}

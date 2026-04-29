@@ -1,0 +1,147 @@
+:root {
+    /* =========================
+    color
+    ========================= */
+    /* 品牌色彩 */
+    --c-primary: #4A7C59;
+    --c-primary-dark: #3a6246;
+    --c-primary-light: #e9f3ec;
+    
+    --c-secondary: #D4A373;
+    --c-secondary-dark: #c28b5c;
+    
+    /* 强调与装饰 */
+    --c-accent: #E89025;
+    --c-accent-dark: #d07a10;
+    --c-badge: #E89025;
+    
+    /* 文本 (WCAG AA 标准) */
+    --c-text-primary: #1e1e1e;
+    --c-text-secondary: #5c5c5c;
+    --c-text-placeholder: #9e9e9e;
+    --c-text-invert: #ffffff;
+    
+    /* 背景与边框 */
+    --c-surface: #F9F6F0;
+    --c-surface-dark: #efe7dc;
+    --c-surface-white: #ffffff;
+    --c-border: #e6e2db;
+    
+    /* 反馈色 (不破坏氛围) */
+    --c-success: #4A7C59;
+    --c-warning: #e89025;
+    --c-error: #d47b7b;
+    --c-info: #6699aa;
+
+    
+    /* =========================
+    spacer
+    ========================= */
+    --s-1: 0.4rem;
+    --s-2: 0.8rem;
+    --s-3: 1.2rem;
+    --s-4: 1.6rem;
+    --s-5: 2rem;
+    --s-6: 2.4rem;
+    --s-7: 2.8rem;
+    --s-8: 3.2rem;
+    --s-9: 3.6rem;
+    --s-10: 4rem;
+    --s-11: 4.4rem;
+    --s-12: 4.8rem;
+    --s-13: 5.2rem;
+    --s-14: 5.6rem;
+    --s-15: 6rem;
+    
+
+    /* =========================
+    radius
+    ========================= */
+    --r-sm: 0.4rem;
+    --r-md: 0.8rem;
+    --r-lg: 1.2rem;
+
+
+    /* =========================
+    shadow
+    ========================= */
+    --sh-xs: 0 1px 3px rgba(0, 0, 0, 0.04); 
+    --sh-sm: 0 2px 6px rgba(74, 124, 89, 0.06);
+    --sh-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --sh-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
+    --sh-xl: 0 12px 28px rgba(0, 0, 0, 0.16); 
+    --sh-hover: 0 6px 16px rgba(0, 0, 0, 0.10); 
+
+
+    /* =========================
+    font
+    ========================= */
+    --fm-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --fm-serif: Georgia, "Times New Roman", serif;
+    --fm-mono: "SF Mono", Monaco, "Cascadia Code", monospace;
+
+    /* 字号 */
+    --fs-xs: 1.2rem;
+    --fs-sm: 1.4rem;
+    --fs-base: 1.6rem;
+    --fs-md: 1.8rem;
+    --fs-lg: 2.0rem;
+    --fs-xl: 2.4rem;
+    --fs-2xl: 3.0rem;
+    --fs-3xl: 3.6rem;
+    --fs-4xl: 4.8rem;
+
+    /* 字重 */
+    --fw-light: 300;
+    --fw-normal: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-extrabold: 800;
+
+    /* 行高 */
+    --lh-tight: 1.25;
+    --lh-normal: 1.5;
+    --lh-relaxed: 1.75;
+    --lh-loose: 2.0;
+
+
+    /* =========================
+    responsive
+    ========================= */
+    --bp-sm: 36em;
+    --bp-md: 48em;
+    --bp-lg: 62em;
+    --bp-xl: 75em;
+    --bp-xxl: 87.5em;
+
+
+    /* =========================
+    transation
+    ========================= */
+    --ts-hover: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --ts-color: color 0.2s ease;
+    --ts-opacity: opacity 0.2s ease;
+    --ts-transform: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --ts-modal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+
+    /* =========================
+    z-index
+    ========================= */
+    --z-0: -1;
+    --z-1: 1;          /* 基础内容 */
+    --z-2: 100;        /* 下拉菜单 */
+    --z-3: 200;        /* 固定头部 */
+    --z-4: 300;        /* 提示工具 */
+    --z-5: 1000;       /* Toast/回到顶部 */
+    --z-6: 2000;       /* 遮罩层 */
+    --z-7: 2001;       /* 模态框 */
+    --z-8: 2002;       /* 抽屉 */
+    --z-max: 9999;     /* 置顶元素 */
+
+    /* =========================
+    nav
+    ========================= */
+    --nav-height: 6rem;
+}

@@ -1,0 +1,53 @@
+/* =========================
+    container
+    ========================= */
+/* ≥ sm */
+@media (min-width: 36em) {
+    .container { max-width: 54rem; }
+}
+
+/* ≥ md */
+@media (min-width: 48em) {
+    .container { max-width: 72rem; }
+}
+
+/* ≥ lg */
+@media (min-width: 62em) {
+    .container { max-width: 96rem; }
+}
+
+/* ≥ xl */
+@media (min-width: 75em) {
+    .container { max-width: 114rem; }
+}
+
+/* ≥ xxl */
+/* @media (min-width: 87.5em) {
+  .container { max-width: 132rem; }
+} */
+
+
+/* =========================
+    font-size
+    ========================= */
+@media (min-width: 48em) {
+    html { font-size: 65%; }
+}
+
+@media (min-width: 75em) {
+    html { font-size: 70%; }
+}
+
+
+/* =========================
+    menu
+    ========================= */
+/* 移动端显示汉堡 + 抽屉 */
+@media (max-width: 62em) {
+    .nav-list {
+        display: none;
+    }
+    .menu-trigger {
+        display: flex;
+    }
+}

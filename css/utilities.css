@@ -1,0 +1,155 @@
+/* =========================
+base
+========================= */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--s-4);
+}
+
+.fixed-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================
+State System
+========================= */
+.is-active {
+    opacity: 1;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.is-show {
+    display: block;
+}
+
+.is-loading {
+    pointer-events:none; 
+    opacity:.6;
+    cursor: wait;
+}
+
+.is-disabled {
+    pointer-events:none; 
+    opacity:.4;
+    cursor: not-allowed;
+}
+
+.is-disabled:focus,
+.is-disabled:focus-visible {
+    outline: none;
+}
+
+.is-open {
+    transform: translateX(0);
+}
+
+.is-closed {
+    transform: translateX(-100%);
+}
+
+.transition-animate {
+    transition: transform 0.25s ease;
+}
+
+.fade-in {
+    animation: fade-in 0.3s ease forwards;
+}
+
+.fade-out {
+    animation: fade-out 0.3s ease forwards;
+}
+
+
+/* =========================
+flex
+========================= */
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aspect-square {
+    aspect-ratio: 1 / 1;
+}
+
+.bg-white {
+    background-color: var(--c-surface-white);
+}
+
+
+/* =========================
+radius
+========================= */
+.rounded-sm {
+    border-radius: var(--r-sm);
+}
+
+.rounded-md {
+    border-radius: var(--r-md);
+}
+
+.rounded-lg {
+    border-radius: var(--r-lg);
+}
+
+.rounded-full {
+    border-radius: 999px;
+}
+
+
+/* =========================
+shadow
+========================= */
+.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+    box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* =========================
+animate
+========================= */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
