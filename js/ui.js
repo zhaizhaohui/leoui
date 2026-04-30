@@ -4,7 +4,7 @@ import { createOffcanvas } from './components/offcanvas.js';
 import { createAccordion } from './components/accordion.js';
 import { createTabs } from './components/tabs.js';
 import { createModal } from './components/modal.js';
-
+import { createCarousel } from './components/carousel.js';
 
 // =========================
 // ① registry 注册组件
@@ -26,7 +26,11 @@ registry.collapsible = (el) => createAccordion(el);
 // 👉 tabs
 registry.tabs = (el) => createTabs(el);
 
+// 👉 modal
 registry.modal = (el) => createModal(el);
+
+// 👉 carousel
+registry.carousel = (el) => createCarousel(el);
 
 
 // =========================
