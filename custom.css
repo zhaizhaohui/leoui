@@ -1,0 +1,67 @@
+html {
+    font-size: 62.5%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --color-white: #FFFFFF;
+    --color-text: #333333;
+    --color-bg: #F5F5F5;
+    --color-primary: #1565C0;
+}
+
+body {
+    background-color: var(--color-bg);
+}
+
+h1 {
+    font-size: 4rem;
+    text-align: center;
+}
+
+.zx-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1.6rem;
+}
+
+@media (min-width: 36em) {
+    .zx-container { max-width: 54rem; }
+}
+
+/* ≥ md */
+@media (min-width: 48em) {
+    .zx-container { max-width: 72rem; }
+}
+
+/* ≥ lg */
+@media (min-width: 62em) {
+    .zx-container { max-width: 96rem; }
+}
+
+/* ≥ xl */
+@media (min-width: 75em) {
+    .zx-container { max-width: 114rem; }
+}
+
+.leo-cards-list {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+}
+
+.leo-card-item {
+    display: flex;
+    padding: 2rem 4rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    text-decoration: none;
+    color: var(--color-text);
+    background-color: var(--color-white);
+}
+
+.leo-card-item:hover {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}

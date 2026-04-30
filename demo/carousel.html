@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        header {
+            display: flex;
+            height: 6rem;
+            justify-content: space-between;
+            background-color: antiquewhite;
+            margin-bottom: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-left"></span>
+        </a>
+    </header>
+    <div class="container">
+        <div class="carousel" data-ui="carousel">
+
+            <div class="carousel-inner">
+                <a class="carousel-item" href="javascript:void(0)">
+                    <img src="https://img.shetu66.com/2025/11/26/176414083691937834.png" alt="Slide 1" class="carousel-img">
+                    <div class="carousel-caption">
+                        <h3>欢迎来到 LEOUI</h3>
+                        <p>优雅、轻量、现代化 UI 框架</p>
+                    </div>
+                </a>
+
+                <a class="carousel-item" href="javascript:void(0)">
+                    <img src="https://img.shetu66.com/2025/06/13/174978033982344784.png" class="carousel-img">
+                    <div class="carousel-caption">
+                        <h3>响应式设计</h3>
+                        <p>完美适配各种设备</p>
+                    </div>
+                </a>
+
+                <a class="carousel-item" href="javascript:void(0)">
+                    <img src="https://img.shetu66.com/2025/12/02/176466972337708590.png" class="carousel-img">
+                </a>
+            </div>
+
+            <div class="carousel-control aspect-square flex-center rounded-full prev">
+                <span class="iconfont icon-left"></span>
+            </div>
+
+            <div class="carousel-control aspect-square flex-center rounded-full next">
+                <span class="iconfont icon-right"></span>
+            </div>
+            <div class="carousel-dots"></div>
+        </div>
+    </div>
+    <script type="module" src="../js/ui.js"></script>
+</body>
+</html>

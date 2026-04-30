@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC端导航</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        header {
+            display: flex;
+            height: 6rem;
+            justify-content: space-between;
+            background-color: white;
+            margin-bottom: 4rem;
+        }
+        body {
+            background-color: antiquewhite;
+        }
+        .nav-list {
+            font-size: 2rem;
+            height: 5rem;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-left"></span>
+        </a>
+    </header>
+    <div class="container">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="nav-link flex-center" href="">首页</a>
+            </li>
+            <li class="nav-item has-sub">
+            <span class="nav-link flex-center">关于</span>
+            <ul class="sub-menu">
+                <li><a href="" target="_blank">团队</a></li>
+                <li><a href="" target="_blank">历史</a></li>
+            </ul>
+            </li>
+            <li class="nav-item has-sub">
+            <span class="nav-link flex-center">服务</span>
+            <ul class="sub-menu">
+                <li><a href="" target="_blank">设计</a></li>
+                <li><a href="" target="_blank">开发</a></li>
+            </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link flex-center" href="" target="_blank">联系</a>
+            </li>
+        </ul>
+    </div>
+    <script type="module" src="../js/ui.js"></script>
+</body>
+</html>

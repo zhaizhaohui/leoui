@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽屉</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        header {
+            display: flex;
+            height: 6rem;
+            justify-content: space-between;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-left"></span>
+        </a>
+        <div data-ui="open:offcanvas#drawer" class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-menu"></span>
+        </div>
+    </header>
+    <div class="leo-mask fixed-fullscreen" id="leoMask"></div>
+    <div class="container">
+        <div class="offcanvas fixed-fullscreen" id="drawer">
+            <div class="popup-top">
+                <span data-ui="close:offcanvas#drawer" data-ui-target="#drawer" class="iconfont icon-close aspect-square flex-center hamburger"></span>
+            </div>
+            <div class="popup-content">
+
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../js/ui.js"></script>
+</body>
+</html>

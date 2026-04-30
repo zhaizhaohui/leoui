@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端导航</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        header {
+            display: flex;
+            height: 6rem;
+            justify-content: space-between;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-left"></span>
+        </a>
+        <div data-ui="open:modal#mymodal" class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-menu"></span>
+        </div>
+    </header>
+    <div class="modal fixed-fullscreen" data-ui="modal" id="mymodal">
+        <div class="modal-box">
+            <div class="popup-top">
+                <span data-ui="close:modal#mymodal" class="iconfont icon-close  aspect-square flex-center hamburger"></span>
+            </div>
+            <div class="popup-content">
+                <ul class="nav-mobile-list" data-ui="accordion">
+
+                    <li class="nav-item"><a class="nav-link" href="#">首页</a></li>
+
+                    <li class="nav-item has-sub" data-ui-item>
+
+                        <span class="nav-submenu nav-link" data-ui-role="trigger">关于</span>
+
+                        <ul class="sub-menu" data-ui-role="panel">
+
+                            <li><a href="#" target="_blank">团队</a></li>
+
+                            <li><a href="#" target="_blank">历史</a></li>
+
+                        </ul>
+
+                    </li>
+
+                    <li class="nav-item has-sub" data-ui-item>
+
+                        <span class="nav-submenu nav-link" data-ui-role="trigger">服务</span>
+
+                        <ul class="sub-menu" data-ui-role="panel">
+
+                            <li><a href="#" target="_blank">设计</a></li>
+
+                            <li><a href="#" target="_blank">开发</a></li>
+
+                        </ul>
+
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="#" target="_blank">联系</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../js/ui.js"></script>
+</body>
+</html>
