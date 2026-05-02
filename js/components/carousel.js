@@ -1,183 +1,215 @@
-import { animate } from '../core/animate.js';
+// js/components/carousel.js
 
-export function createCarousel(root, options = {}) {
+import { animate } from '../core/animate.js'
 
-    const {
-        interval = 3000,
-        autoplay = true
-    } = options;
+export default function createCarousel(root) {
 
-    const track = root.querySelector('.carousel-inner');
-    let items = Array.from(root.querySelectorAll('.carousel-item'));
-
-    const prevBtn = root.querySelector('.carousel-control.prev');
-    const nextBtn = root.querySelector('.carousel-control.next');
-    const dotsWrap = root.querySelector('.carousel-dots');
-
-    let index = 1;
-    let timer = null;
-    let width = root.clientWidth;
+    // 防重复初始化（关键）
+    if (root.__carousel_inited__) return root.__carousel_instance__
+    root.__carousel_inited__ = true
 
     // =========================
-    // 👉 克隆首尾（实现无限）
+    // 从 DOM 读取配置
     // =========================
-    const first = items[0].cloneNode(true);
-    const last = items[items.length - 1].cloneNode(true);
+    const interval = Number(root.dataset.interval || 3000)
+    const autoplay = root.dataset.autoplay !== 'false'
 
-    track.appendChild(first);
-    track.insertBefore(last, items[0]);
+    const track = root.querySelector('.carousel-inner')
+    let items = Array.from(root.querySelectorAll('.carousel-item'))
 
-    items = Array.from(root.querySelectorAll('.carousel-item'));
+    const prevBtn = root.querySelector('.carousel-control.prev')
+    const nextBtn = root.querySelector('.carousel-control.next')
+    const dotsWrap = root.querySelector('.carousel-dots')
 
-    // 初始位置
-    track.style.transform = `translateX(-${width * index}px)`;
+    let index = 1
+    let timer = null
+    let width = root.clientWidth
 
     // =========================
-    // 👉 dots
+    // 克隆（只做一次）
     // =========================
-    const realCount = items.length - 2;
+    const first = items[0].cloneNode(true)
+    const last = items[items.length - 1].cloneNode(true)
+
+    track.appendChild(first)
+    track.insertBefore(last, items[0])
+
+    items = Array.from(root.querySelectorAll('.carousel-item'))
+
+    track.style.transform = `translateX(-${width * index}px)`
+
+    // =========================
+    // dots
+    // =========================
+    const realCount = items.length - 2
+
+    dotsWrap.innerHTML = ''
 
     for (let i = 0; i < realCount; i++) {
-        const dot = document.createElement('span');
-        dot.className = 'dot';
-        if (i === 0) dot.classList.add('active');
+        const dot = document.createElement('span')
+        dot.className = 'dot'
+        if (i === 0) dot.classList.add('active')
 
         dot.addEventListener('click', () => {
-            index = i + 1;
-            move();
-        });
+            index = i + 1
+            move()
+        })
 
-        dotsWrap.appendChild(dot);
+        dotsWrap.appendChild(dot)
     }
 
-    const dots = dotsWrap.querySelectorAll('.dot');
+    const dots = dotsWrap.querySelectorAll('.dot')
 
     function updateDots() {
-        dots.forEach(d => d.classList.remove('active'));
-        dots[(index - 1 + realCount) % realCount].classList.add('active');
+        dots.forEach(d => d.classList.remove('active'))
+        dots[(index - 1 + realCount) % realCount]?.classList.add('active')
     }
 
     // =========================
-    // 👉 核心移动函数
+    // 移动
     // =========================
-    function move(withTransition = true) {
-
-        const x = -index * width;
-        animate(track, 'slideX', { x });
-        updateDots();
+    function move() {
+        const x = -index * width
+        animate(track, 'slideX', { x })
+        updateDots()
     }
 
     // =========================
-    // 👉 边界修复（无缝）
+    // 边界修复
     // =========================
-    track.addEventListener('transitionend', () => {
-
+    function onTransitionEnd() {
         if (index === items.length - 1) {
-            index = 1;
-            move(false);
+            index = 1
+            track.style.transition = 'none'
+            track.style.transform = `translateX(-${width * index}px)`
         }
 
         if (index === 0) {
-            index = items.length - 2;
-            move(false);
+            index = items.length - 2
+            track.style.transition = 'none'
+            track.style.transform = `translateX(-${width * index}px)`
         }
-    });
+    }
+
+    track.addEventListener('transitionend', onTransitionEnd)
 
     // =========================
-    // 👉 按钮
+    // 按钮
     // =========================
-    nextBtn?.addEventListener('click', () => {
-        index++;
-        move();
-    });
+    function next() {
+        index++
+        move()
+    }
 
-    prevBtn?.addEventListener('click', () => {
-        index--;
-        move();
-    });
+    function prev() {
+        index--
+        move()
+    }
+
+    nextBtn?.addEventListener('click', next)
+    prevBtn?.addEventListener('click', prev)
 
     // =========================
-    // 👉 自动播放
+    // autoplay
     // =========================
     function start() {
-        if (!autoplay) return;
+        if (!autoplay) return
+        stop()
         timer = setInterval(() => {
-            index++;
-            move();
-        }, interval);
+            index++
+            move()
+        }, interval)
     }
 
     function stop() {
-        clearInterval(timer);
+        if (timer) clearInterval(timer)
     }
 
-    root.addEventListener('mouseenter', stop);
-    root.addEventListener('mouseleave', start);
+    root.addEventListener('mouseenter', stop)
+    root.addEventListener('mouseleave', start)
 
-    start();
+    start()
 
     // =========================
-    // 👉 手势支持（移动端）
+    // touch
     // =========================
-    let startX = 0;
-    let deltaX = 0;
-    let isDragging = false;
+    let startX = 0
+    let deltaX = 0
+    let isDragging = false
 
-    track.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-        stop();
-    });
+    function onTouchStart(e) {
+        startX = e.touches[0].clientX
+        isDragging = true
+        stop()
+    }
 
-    track.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
+    function onTouchMove(e) {
+        if (!isDragging) return
 
-        const currentX = e.touches[0].clientX;
-        deltaX = currentX - startX;
+        const currentX = e.touches[0].clientX
+        deltaX = currentX - startX
 
-        track.style.transition = 'none';
-        track.style.transform = `translateX(${ -index * width + deltaX }px)`;
-    });
+        track.style.transition = 'none'
+        track.style.transform = `translateX(${ -index * width + deltaX }px)`
+    }
 
-    track.addEventListener('touchend', () => {
-        isDragging = false;
+    function onTouchEnd() {
+        isDragging = false
 
         if (Math.abs(deltaX) > 50) {
-            if (deltaX > 0) {
-                index--;
-            } else {
-                index++;
-            }
+            deltaX > 0 ? index-- : index++
         }
 
-        move();
-        start();
-        deltaX = 0;
-    });
+        move()
+        start()
+        deltaX = 0
+    }
+
+    track.addEventListener('touchstart', onTouchStart)
+    track.addEventListener('touchmove', onTouchMove)
+    track.addEventListener('touchend', onTouchEnd)
 
     // =========================
-    // 👉 resize
+    // resize
     // =========================
-    window.addEventListener('resize', () => {
-        width = root.clientWidth;
-        move(false);
-    });
+    function onResize() {
+        width = root.clientWidth
+        move()
+    }
 
-    return {
-        next() {
-            index++;
-            move();
-        },
-        prev() {
-            index--;
-            move();
-        },
+    window.addEventListener('resize', onResize)
+
+    // =========================
+    // API
+    // =========================
+    const instance = {
+        next,
+        prev,
         go(i) {
-            index = i + 1;
-            move();
+            index = i + 1
+            move()
         },
         destroy() {
-            stop();
+            stop()
+
+            track.removeEventListener('transitionend', onTransitionEnd)
+            track.removeEventListener('touchstart', onTouchStart)
+            track.removeEventListener('touchmove', onTouchMove)
+            track.removeEventListener('touchend', onTouchEnd)
+
+            nextBtn?.removeEventListener('click', next)
+            prevBtn?.removeEventListener('click', prev)
+
+            root.removeEventListener('mouseenter', stop)
+            root.removeEventListener('mouseleave', start)
+
+            window.removeEventListener('resize', onResize)
+
+            root.__carousel_inited__ = false
         }
-    };
+    }
+
+    root.__carousel_instance__ = instance
+
+    return instance
 }

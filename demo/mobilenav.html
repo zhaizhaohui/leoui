@@ -19,14 +19,25 @@
         <a href="../index.html" class="nav-tool hamburger flex-center aspect-square">
             <span class="iconfont icon-left"></span>
         </a>
-        <div data-ui="open:modal#mymodal" class="nav-tool hamburger flex-center aspect-square">
-            <span class="iconfont icon-menu"></span>
+
+        <div class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-menu"
+                data-action="open"
+                data-target="mymodal">
+            </span>
         </div>
     </header>
-    <div class="modal fixed-fullscreen" data-ui="modal" id="mymodal">
+
+    <div class="modal fixed-fullscreen"
+        data-ui="modal"
+        id="mymodal">
+
         <div class="modal-box">
             <div class="popup-top">
-                <span data-ui="close:modal#mymodal" class="iconfont icon-close  aspect-square flex-center hamburger"></span>
+                <span data-action="close"
+                    data-target="mymodal"
+                    class="iconfont icon-close aspect-square flex-center hamburger">
+                </span>
             </div>
             <div class="popup-content">
                 <ul class="nav-mobile-list" data-ui="accordion">
@@ -67,6 +78,8 @@
             </div>
         </div>
     </div>
-    <script type="module" src="../js/ui.js"></script>
+
+
+    <script type="module" src="../js/index.js"></script>
 </body>
 </html>

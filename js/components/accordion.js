@@ -1,71 +1,109 @@
-import { animate } from '../core/animate.js';
+// js/components/accordion.js
 
-export function createAccordion(root, options = {}) {
+import { animate } from '../core/animate.js'
 
-    const {
-        single = true,
-        defaultOpenIndex = -1,
-        closeOnClick = true,
-    } = options;
+export default function createAccordion(root) {
 
-    const getItems = () => root.querySelectorAll('[data-ui-item]');
-    const getPanel = item => item.querySelector('[data-ui-role="panel"]');
+    // =========================
+    // 从 DOM 读取配置
+    // =========================
+    const single = root.dataset.single !== 'false'
+    const defaultOpenIndex = Number(root.dataset.default || -1)
+    const closeOnClick = root.dataset.close !== 'false'
 
-    const openItem = item => {
-        const panel = getPanel(item);
-        if (!panel) return;
+    const getItems = () => root.querySelectorAll('[data-ui-item]')
+    const getPanel = item => item.querySelector('[data-ui-role="panel"]')
 
-        item.classList.add('is-open');
-        animate(panel, 'collapse', { open: true });
-    };
+    const openItem = (item) => {
+        const panel = getPanel(item)
+        if (!panel) return
 
-    const closeItem = item => {
-        const panel = getPanel(item);
-        if (!panel) return;
-
-        item.classList.remove('is-open');
-        animate(panel, 'collapse', { open: false });
-    };
-
-    // 👉 默认打开（无动画）
-    const items = getItems();
-    if (items[defaultOpenIndex]) {
-        items[defaultOpenIndex].classList.add('is-open');
-        const panel = getPanel(items[defaultOpenIndex]);
-        if (panel) panel.style.height = 'auto';
+        item.classList.add('is-open')
+        animate(panel, 'collapse', { open: true })
     }
 
-    root.addEventListener('click', e => {
+    const closeItem = (item) => {
+        const panel = getPanel(item)
+        if (!panel) return
 
-        const trigger = e.target.closest('[data-ui-role="trigger"]');
-        if (!trigger || !root.contains(trigger)) return;
+        item.classList.remove('is-open')
+        animate(panel, 'collapse', { open: false })
+    }
 
-        const item = trigger.closest('[data-ui-item]');
-        if (!item) return;
+    // =========================
+    // 默认展开（无动画）
+    // =========================
+    const items = getItems()
 
-        const isOpen = item.classList.contains('is-open');
+    if (items[defaultOpenIndex]) {
+        const item = items[defaultOpenIndex]
+        item.classList.add('is-open')
 
+        const panel = getPanel(item)
+        if (panel) panel.style.height = 'auto'
+    }
+
+    // =========================
+    // 事件（内部自管理）
+    // =========================
+    function onClick(e) {
+
+        const trigger = e.target.closest('[data-ui-role="trigger"]')
+        if (!trigger || !root.contains(trigger)) return
+
+        const item = trigger.closest('[data-ui-item]')
+        if (!item) return
+
+        const isOpen = item.classList.contains('is-open')
+
+        // 当前打开 → 关闭
         if (isOpen && closeOnClick) {
-            closeItem(item);
-            return;
+            closeItem(item)
+            return
         }
 
+        // 单开模式
         if (single) {
-            getItems().forEach(i => i !== item && closeItem(i));
+            getItems().forEach(i => {
+                if (i !== item) closeItem(i)
+            })
         }
 
-        openItem(item);
-    });
+        openItem(item)
+    }
 
+    root.addEventListener('click', onClick)
+
+    // =========================
+    // API（可选）
+    // =========================
     return {
-        open: i => getItems()[i] && openItem(getItems()[i]),
-        close: i => getItems()[i] && closeItem(getItems()[i]),
-        toggle: i => {
-            const item = getItems()[i];
-            if (!item) return;
-            item.classList.contains('is-open') ? closeItem(item) : openItem(item);
+
+        open(index) {
+            const item = getItems()[index]
+            if (item) openItem(item)
         },
-        closeAll: () => getItems().forEach(closeItem),
-        destroy: () => root.replaceWith(root.cloneNode(true))
-    };
+
+        close(index) {
+            const item = getItems()[index]
+            if (item) closeItem(item)
+        },
+
+        toggle(index) {
+            const item = getItems()[index]
+            if (!item) return
+
+            item.classList.contains('is-open')
+                ? closeItem(item)
+                : openItem(item)
+        },
+
+        closeAll() {
+            getItems().forEach(closeItem)
+        },
+
+        destroy() {
+            root.removeEventListener('click', onClick)
+        }
+    }
 }

@@ -1,63 +1,24 @@
-import { registry } from './registry.js';
-
-const instances = new Map();
-
-// =========================
-// 获取实例（缓存版）
-function getInstance(type, el) {
-    if (!instances.has(el)) {
-        const factory = registry[type];
-        if (!factory) return null;
-
-        instances.set(el, factory(el));
-    }
-    return instances.get(el);
-}
-
-// =========================
-// 解析 data-ui
-function parseUI(value) {
-    // open:modal#modal1
-    const [actionPart, rest] = value.split(':');
-    if (!rest) return null;
-
-    const [type, id] = rest.split('#');
-
-    return {
-        action: actionPart,
-        type,
-        id: id || null
-    };
-}
-
-// =========================
-// 自动绑定
 document.addEventListener('click', (e) => {
 
-    const el = e.target.closest('[data-ui]');
-    if (!el) return;
+    const actionEl = e.target.closest('[data-action]')
+    if (!actionEl) return
 
-    const parsed = parseUI(el.dataset.ui);
-    if (!parsed) return;
+    const action = actionEl.dataset.action
 
-    const { action, type, id } = parsed;
+    // 🔥 优先用 data-target
+    const targetId = actionEl.dataset.target
+    let root = null
 
-    // =========================
-    // 目标查找策略
-    // =========================
-    let target = null;
-
-    if (id) {
-        target = document.getElementById(id);
+    if (targetId) {
+        root = document.getElementById(targetId)
     } else {
-        // fallback：最近 UI
-        target = document.querySelector(`[data-ui="${type}"]`);
+        root = actionEl.closest('[data-ui]')
     }
 
-    if (!target) return;
+    if (!root) return
 
-    const instance = getInstance(type, target);
-    if (!instance) return;
+    const type = root.dataset.ui
+    const instance = root.__ui__?.[type]
 
-    instance[action]?.();
-});
+    instance?.[action]?.()
+})

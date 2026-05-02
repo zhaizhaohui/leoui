@@ -1,56 +1,103 @@
-import { registry } from './core/registry.js';
+// js/ui.js
 
-import { createOffcanvas } from './components/offcanvas.js';
-import { createAccordion } from './components/accordion.js';
-import { createTabs } from './components/tabs.js';
-import { createModal } from './components/modal.js';
-import { createCarousel } from './components/carousel.js';
+import { registry } from './core/registry.js'
 
 // =========================
-// ① registry 注册组件
+// 模块缓存（避免重复 import）
 // =========================
-
-// 👉 offcanvas（singleton）
-registry.offcanvas = (el) => {
-    const mask = document.getElementById('leoMask');
-    return createOffcanvas(el, { mask });
-};
-
-
-// 👉 accordion（item UI）
-registry.accordion = (el) => createAccordion(el);
-
-// 👉 collapsible（复用 accordion）
-registry.collapsible = (el) => createAccordion(el);
-
-// 👉 tabs
-registry.tabs = (el) => createTabs(el);
-
-// 👉 modal
-registry.modal = (el) => createModal(el);
-
-// 👉 carousel
-registry.carousel = (el) => createCarousel(el);
-
+const moduleCache = new Map()
 
 // =========================
-// ② 自动初始化结构型组件
+// 获取组件模块（按需加载）
 // =========================
+async function getModule(type) {
+    if (moduleCache.has(type)) {
+        return moduleCache.get(type)
+    }
 
-document.querySelectorAll('[data-ui]').forEach(el => {
+    const loader = registry[type]
 
-    const type = el.dataset.ui;
+    if (!loader) {
+        console.warn(`[UI] Unknown component: ${type}`)
+        return null
+    }
 
-    // 防重复初始化
-    if (el.dataset.uiInit === '1') return;
-    el.dataset.uiInit = '1';
+    const mod = await loader()
+    moduleCache.set(type, mod)
 
-    registry[type]?.(el);
-});
-
+    return mod.default || mod
+}
 
 // =========================
-// ③ runtime（必须在最后引入）
+// 初始化单个组件
 // =========================
+async function init(el) {
+    const type = el.dataset.ui
+    const mod = await getModule(type)
+    const instance = mod(el)
+    el.__ui__ = el.__ui__ || {}
+    el.__ui__[type] = instance
+}
+// =========================
+// 扫描初始化
+// =========================
+function scan(root = document) {
+    root.querySelectorAll('[data-ui]').forEach(init)
+}
 
-import './core/runtime.js';
+// =========================
+// 重新扫描（动态 DOM 支持）
+// =========================
+function refresh(root = document) {
+    scan(root)
+}
+
+// =========================
+// 手动调用组件 API
+// =========================
+async function use(type, el) {
+    const mod = await getModule(type)
+    if (!mod) return null
+
+    if (typeof mod === 'function') {
+        return mod(el)
+    }
+
+    if (typeof mod.init === 'function') {
+        return mod.init(el)
+    }
+
+    return null
+}
+
+// =========================
+// 获取组件实例
+// =========================
+function getInstance(el, type) {
+    return el.__ui__?.[type]
+}
+
+// =========================
+// 自动启动
+// =========================
+function boot() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => scan())
+    } else {
+        scan()
+    }
+}
+
+// =========================
+// 对外 API
+// =========================
+export const ui = {
+    init,
+    scan,
+    refresh,
+    use,
+    getInstance
+}
+
+// 自动运行
+boot()

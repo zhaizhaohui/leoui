@@ -1,31 +1,40 @@
-export function createOffcanvas(el, { mask } = {}) {
+// js/components/offcanvas.js
+
+export default function createOffcanvas(el) {
+
+    // 自动找 mask（不依赖外部传参）
+    const mask = document.querySelector('[data-ui-mask]')
 
     function open() {
-        el.classList.add('is-open');
-        mask?.classList.add('is-show');
-        document.body.classList.add('no-scroll');
+        el.classList.add('is-open')
+        mask?.classList.add('is-show')
+        document.body.classList.add('no-scroll')
     }
 
     function close() {
-        el.classList.remove('is-open');
-        mask?.classList.remove('is-show');
-        document.body.classList.remove('no-scroll');
+        el.classList.remove('is-open')
+        mask?.classList.remove('is-show')
+        document.body.classList.remove('no-scroll')
     }
 
     function toggle() {
-        el.classList.toggle('is-open');
-        mask?.classList.toggle('is-show');
-        document.body.classList.toggle('no-scroll');
+        el.classList.contains('is-open') ? close() : open()
     }
 
-    // 内部 close
-    el.addEventListener('click', (e) => {
-        if (e.target.closest('[data-ui-action="drawer.close"]')) {
-            close();
+    // 点击 mask 关闭
+    function onMaskClick() {
+        close()
+    }
+
+    mask?.addEventListener('click', onMaskClick)
+
+    return {
+        open,
+        close,
+        toggle,
+
+        destroy() {
+            mask?.removeEventListener('click', onMaskClick)
         }
-    });
-
-    mask?.addEventListener('click', close);
-
-    return { open, close, toggle };
+    }
 }

@@ -19,21 +19,37 @@
         <a href="../index.html" class="nav-tool hamburger flex-center aspect-square">
             <span class="iconfont icon-left"></span>
         </a>
-        <div data-ui="open:offcanvas#drawer" class="nav-tool hamburger flex-center aspect-square">
-            <span class="iconfont icon-menu"></span>
+
+        <!-- 打开 -->
+        <div class="nav-tool hamburger flex-center aspect-square">
+            <span class="iconfont icon-menu"
+                data-action="open"
+                data-target="drawer">
+            </span>
         </div>
     </header>
-    <div class="leo-mask fixed-fullscreen" id="leoMask"></div>
-    <div class="container">
-        <div class="offcanvas fixed-fullscreen" id="drawer">
-            <div class="popup-top">
-                <span data-ui="close:offcanvas#drawer" data-ui-target="#drawer" class="iconfont icon-close aspect-square flex-center hamburger"></span>
-            </div>
-            <div class="popup-content">
 
-            </div>
+<!-- mask -->
+<div class="leo-mask fixed-fullscreen" data-ui-mask></div>
+
+<div class="container">
+
+    <!-- offcanvas 实体 -->
+    <div class="offcanvas fixed-fullscreen"
+         data-ui="offcanvas"
+         id="drawer">
+
+        <div class="popup-top">
+            <span class="iconfont icon-close aspect-square flex-center hamburger"
+                  data-action="close"
+                  data-target="drawer">
+            </span>
         </div>
+        <div class="popup-content">内容</div>
+
     </div>
-    <script type="module" src="../js/ui.js"></script>
+</div>
+    <script type="module" src="../js/index.js"></script>
 </body>
 </html>
+
