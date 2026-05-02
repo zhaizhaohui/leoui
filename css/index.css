@@ -1,30 +1,20 @@
 /* =========================
-   DESIGN TOKENS
+   CORE
 ========================= */
-@import "./tokens.css";
-
-/* =========================
-   BASE
-========================= */
-@import "./core.css";
-
-/* =========================
-   UTILITIES
-========================= */
-@import "./utilities.css";
-
-
-/* =========================
-   FONTS
-========================= */
-@import "./fonts.css";
+@import "./core/tokens.css";
+@import "./core/reset.css";
+@import "./core/responsive.css";
+@import "./core/utilities.css";
+@import "./core/fonts.css";
 
 /* =========================
    COMPONENTS
 ========================= */
-@import "./components.css";
-
-/* =========================
-   RESPONSIVE
-========================= */
-@import "./responsive.css";
+@import "./components/button.css";
+@import "./components/nav.css";
+@import "./components/card.css";
+@import "./components/search.css";
+@import "./components/hamburger.css";
+@import "./components/modal.css";
+@import "./components/tab.css";
+@import "./components/carousel.css";

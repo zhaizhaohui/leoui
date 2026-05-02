@@ -1,0 +1,22 @@
+.search {
+    display: inline-flex;
+    overflow: hidden;
+    align-items: center;
+    border: 1px solid var(--c-border);
+    transition: border-color var(--transition-slow);
+}
+
+.search:focus-within {
+    border-color: var(--c-primary);
+}
+
+.search-input {
+    height: inherit;
+    min-width: 24rem;
+    border: none;
+    margin-right: -1px;
+}
+
+.search-btn {
+    height: inherit;
+}

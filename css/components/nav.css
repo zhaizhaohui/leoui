@@ -1,0 +1,89 @@
+.nav-list {
+    display: flex;
+}
+
+.nav-list .nav-item {
+    position: relative;
+    height: 100%;
+}
+
+.nav-list .nav-link {
+    height: 100%;
+    cursor: pointer;
+    padding: 0 var(--s-4);
+}
+
+.nav-list .nav-item:hover {
+    color: var(--c-text-invert);
+    background: var(--c-primary);
+}
+
+.nav-list .nav-item .sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--c-surface-white);
+    color: var(--c-text-primary);
+    display: none;
+    min-width: 16rem;
+}
+
+.nav-list .nav-item:hover .sub-menu {
+    display: block;
+}
+
+.sub-menu li a {
+    display: block;
+    padding: var(--s-3) var(--s-4);
+}
+
+.sub-menu li a:hover {
+    background: var(--c-primary-light);
+}
+
+/* 移动端menu */
+.nav-mobile-list {
+    flex-direction: column;
+}
+
+.nav-mobile-list .nav-item {
+    border-bottom: 1px solid var(--c-border);
+}
+
+.nav-mobile-list .sub-menu {
+    height: 0;
+    overflow: hidden;
+}
+
+.nav-mobile-list .nav-item.is-open .sub-menu {
+    display: block;
+}
+
+.nav-submenu {
+    justify-content: space-between;
+}
+
+.nav-mobile-list .nav-link {
+    display: flex;
+    padding: var(--s-3) var(--s-4);
+}
+
+.has-sub > .nav-submenu::after {
+    content: "▾";
+    margin-left: var(--s-1);
+    font-size: var(--fs-xs);
+    display: inline-block;
+    transition: var(--ts-transform);
+}
+
+.nav-list.nav-item:hover,
+.nav-mobile-list .nav-item.is-open
+ .nav-submenu::after {
+    transform: rotate(180deg);
+}
+
+.nav-tools {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}

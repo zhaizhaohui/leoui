@@ -1,0 +1,48 @@
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    gap: var(--s-4);
+}
+
+.card-item {
+	position: relative;
+	background: var(--c-surface-white);
+	overflow: hidden;
+}
+
+.card-info {
+	padding: var(--s-4);
+}
+
+.card-title {
+	font-size: var(--fs-lg);
+	margin-bottom: var(--s-3);
+}
+
+.card-text {
+    margin: var(--s-4) 0;
+    line-height: var(--lh-tight);
+}
+
+.card-sub {
+    text-align: center;
+    color: var(--c-primary);
+}
+
+.badge {
+	display: inline-block;
+	padding: var(--s-2) var(--s-3);
+	font-size: var(--fs-sm);
+	color: var(--c-text-invert);
+	background-color: var(--c-primary);
+}
+
+.badge-onsale {
+	position: absolute;
+	top: var(--s-2);
+	left: var(--s-2);
+    color: var(--c-text-invert);
+	z-index: var(--z-2);
+    padding: var(--s-2) var(--s-3);
+	background-color: var(--c-error);
+}

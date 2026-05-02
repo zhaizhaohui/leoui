@@ -1,0 +1,42 @@
+.leo-mask {
+    z-index: var(--z-0);
+}
+
+.leo-mask.is-show {
+    background: rgba(0, 0, 0, 0.5);
+    z-index: var(--z-6);
+}
+.modal {
+    z-index: var(--z-8);
+    background: var(--c-surface-white);
+    display: none;
+}
+
+.modal.is-open {
+    display: block;
+}
+.offcanvas {
+    transform: translateX(-100%);
+    width: 75%;
+    background: var(--c-surface-white);
+    z-index: var(--z-8);
+    transition: var(--ts-transform);
+}
+
+.offcanvas.is-open {
+    transform: translateX(0);
+}
+
+.popup-top {
+    position: fixed;
+    width: 100%;
+    height: var(--nav-height);
+    display: flex;
+    justify-content: right;
+    border-bottom: 1px solid var(--c-border);
+}
+
+.popup-content {
+    height: 100%;
+    padding-top: var(--nav-height);
+}

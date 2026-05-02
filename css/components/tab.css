@@ -1,0 +1,22 @@
+.tab-bar {
+    cursor: pointer;
+    padding: var(--s-2) var(--s-4);
+    background-color: var(--c-surface-dark);
+}
+
+.tab-content {
+    padding: var(--s-4);
+    background-color: var(--c-surface-white);
+}
+
+[data-ui="tabs"] [data-ui-role="panel"] {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.25s ease;
+}
+
+[data-ui="tabs"] [data-ui-item].is-active [data-ui-role="panel"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
